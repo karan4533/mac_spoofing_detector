@@ -1,118 +1,186 @@
+Here's the **properly structured and formatted `README.md` file** incorporating all your content — polished for GitHub, including correct markdown headers, syntax highlighting, and readability:
+
+---
+
 ```markdown
 # 🛡️ MAC Spoofing Detection Tool
 
-## 📄 Overview  
-A Python-based network security solution that monitors ARP traffic in real-time to detect and prevent MAC address spoofing attacks. Features live email alerts, automatic IP blocking via Windows Firewall, and an interactive Streamlit dashboard.
+## 📄 Overview
+
+A Python-based network security tool that monitors ARP traffic to detect MAC address spoofing on a local network. When spoofing is detected, it sends an email alert, blocks the attacker’s IP using Windows Firewall, and updates a live dashboard built with Streamlit.
 
 ---
 
-## 🌟 Key Features  
-- **Real-time ARP Packet Analysis** using Scapy  
-- **Instant Email Alerts** via Gmail SMTP  
-- **Automatic Attacker Blocking** with Windows Firewall rules  
-- **Live Monitoring Dashboard** with Streamlit  
-- **Multi-threaded Architecture** for concurrent operations  
+## 🚀 Features
+
+- 🔍 Real-time ARP Packet Sniffing
+- ⚠️ MAC Spoofing Detection & Logging
+- 📧 Email Alerts via Gmail
+- 🔒 Automatic Blocking via Windows Firewall (Windows only)
+- 📊 Live Dashboard using Streamlit
 
 ---
 
-## 🛠️ Installation  
+## 🧰 Technologies Used
 
-### Prerequisites  
-- Python 3.8+  
-- Windows OS (for firewall integration)  
-- Administrator privileges  
+| Technology        | Purpose                                 |
+|------------------|-----------------------------------------|
+| **Python**        | Core programming language               |
+| **Scapy**         | Sniffing ARP packets                    |
+| **Streamlit**     | Web dashboard UI                        |
+| **smtplib**       | Email notification system               |
+| **Windows Firewall (netsh)** | Blocking attacker IP automatically   |
+| **Threading**     | Simultaneous sniffing & dashboard       |
 
-```
+---
+
+## 🛠️ Setup Instructions
+
+### 1. Clone the Repository
+
+```bash
 git clone https://github.com/your-username/mac-spoofing-detector.git
 cd mac-spoofing-detector
+```
+
+### 2. Install Dependencies
+
+```bash
 pip install -r requirements.txt
 ```
 
----
+### 3. Configure the Tool
 
-## ⚙️ Configuration  
+Set your **network interface** in `config.py`:
 
-1. **Network Interface** (`config.py`):  
-```
-INTERFACE = "Wi-Fi"  # Options: "Ethernet", "Wi-Fi 2" etc.
+```python
+INTERFACE = "Wi-Fi"  # or "Ethernet"
 ```
 
-2. **Email Settings** (`email_config.py`):  
-```
+Set your **email credentials** in `email_config.py` (use a Gmail app password):
+
+```python
 EMAIL_ADDRESS = "your-email@gmail.com"
-EMAIL_PASSWORD = "your-app-password"  # Use Gmail App Password
+EMAIL_PASSWORD = "your-app-password"
 ```
 
 ---
 
-## 🚀 Usage  
+## ▶️ Usage
 
-### Start Detection System  
-```
-# Run as Administrator
+Run the main application:
+
+```bash
 python main.py
 ```
 
-### Access Live Dashboard  
-```
+> ⚠️ Make sure to **run with admin/root privileges** (Right-click > "Run as Administrator" on Windows).
+
+By default, the tool:
+- Sniffs ARP packets for **30 seconds** (modifiable in `arp_sniffer.py`)
+- Sends **email alerts** if spoofing is detected
+- **Blocks** attacker IP via Windows Firewall
+- Updates a **live dashboard** using Streamlit
+
+---
+
+## 📺 Streamlit Dashboard Preview
+
+The Streamlit dashboard displays:
+
+- 🔄 Real-time spoofing detection status
+- 🔍 Spoofed device details (IP, MAC, Block Status)
+- 🖥️ System Info and Logs in Sidebar
+
+To run the dashboard manually (optional):
+
+```bash
 streamlit run dashboard.py
 ```
 
 ---
 
-## 📊 Dashboard Features  
-| Component          | Description                          |
-|--------------------|--------------------------------------|
-| Real-time Alerts   | Visual indicators for spoofing status|
-| Blocked Devices    | Table of banned IP/MAC combinations  |
-| Network Statistics | Packet counts and interface details  |
-| System Logs        | Timestamped event history            |
+## ✉️ Email Alert Format
 
----
+### 🔴 When Spoofing is Detected:
 
-## ✉️ Email Alert Samples  
+```yaml
+🚨 MAC Spoofing Detected!
 
-### Attack Detected  
-```
-Subject: 🚨 MAC Spoofing Detected!
-
-Body:
-📍 IP: 192.168.1.100  
-🖥️ MAC: 00:11:22:33:44:55  
-⏱️ Timestamp: 2025-04-16 19:45:32  
-🔒 Action Taken: IP blocked via Windows Firewall
-```
-
-### All Clear  
-```
-Subject: ✅ Network Secure  
-Body: No spoofing detected in last scan (30s)
+🔒 Blocked Device Details:
+📍 IP Address: 192.168.1.100
+🖥️ MAC Address: 00:11:22:33:44:55
+🚫 Blocked Status: Yes
 ```
 
 ---
 
-## 📚 Documentation  
-[![Documentation](https://img.shields.io/badge/Technical_Docs-PDF-blue)](docs/technical_manual.pdf)  
-[![API Reference](https://img.shields.io/badge/API_Reference-Wiki-green)](https://github.com/your-username/mac-spoofing-detector/wiki)
+### 🟢 When No Spoofing is Detected:
 
----
+```yaml
+✅ No MAC spoofing detected in your system.
 
-## 🤝 Contributing  
-Pull requests welcome! Please follow our [contribution guidelines](CONTRIBUTING.md).
-
----
-
-> **Note:** Always test in controlled environments before production use. Maintain proper network authorization for all monitoring activities.
+🔒 Blocked Device Details:
+📍 IP Address: N/A
+🖥️ MAC Address: N/A
+🚫 Blocked Status: No spoofing
 ```
 
-This professional README uses:  
-- Clear section hierarchy with emoji headers  
-- Proper code fencing with language-specific syntax highlighting  
-- Organized tables for feature comparisons  
-- Visual badges for documentation links  
-- Concise installation/usage instructions  
-- Sample alert formats in expandable code blocks  
-- Important security disclaimer at bottom
+---
+
+## 📁 Project Structure
+
+```bash
+mac-spoofing-detector/
+│
+├── arp_sniffer.py       # Core ARP sniffer and detector
+├── detector.py          # Spoofing detection logic
+├── preventer.py         # Windows firewall blocker
+├── logger.py            # Email alert system
+├── dashboard.py         # Streamlit UI
+├── main.py              # Main entry point
+├── config.py            # Network interface config
+├── email_config.py      # Email credentials
+├── requirements.txt     # Dependencies list
+```
 
 ---
-Answer from Perplexity: pplx.ai/share
+
+## 📌 Notes
+
+- ✅ Tested on **Windows OS** for firewall blocking.
+- 🔐 Run as administrator to allow sniffing and firewall rules.
+- ⏱️ Modify sniffing duration in `start_sniffing()` inside `arp_sniffer.py`.
+
+---
+
+## 🔒 Disclaimer
+
+> This project is intended for **educational and research** use only.  
+> Do **not** run on public or unauthorized networks without permission.
+
+---
+
+## ✅ Author
+
+Developed as part of a **Network Security Project** on MAC spoofing detection and prevention using Python, Streamlit, and Windows Firewall.
+
+---
+
+## 🧪 Sample `requirements.txt`
+
+```txt
+scapy
+streamlit
+```
+
+---
+
+Let me know if you'd like to add GitHub badges (e.g., Python version, License, Last Commit) or include screenshots of the dashboard!
+```
+
+---
+
+✅ **To Use**: Save this as `README.md` in the root of your project, and GitHub will render it perfectly.
+
+Want me to generate GitHub badges or create a LICENSE too?
