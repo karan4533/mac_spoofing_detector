@@ -34,7 +34,7 @@ A Python-based network security tool that monitors ARP traffic to detect MAC add
 
 ---
 
-## 🛠️ Setup Instructions
+### 🛠️ Setup Instructions
 
 ### 1. Clone the Repository
 
