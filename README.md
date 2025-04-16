@@ -24,7 +24,7 @@ A Python-based network security tool that monitors ARP traffic to detect MAC add
 ## 🧰 Technologies Used
 
 | Technology        | Purpose                                 |
-|------------------|-----------------------------------------|
+|------------------|----------------------------------------- |
 | **Python**        | Core programming language               |
 | **Scapy**         | Sniffing ARP packets                    |
 | **Streamlit**     | Web dashboard UI                        |
@@ -33,22 +33,35 @@ A Python-based network security tool that monitors ARP traffic to detect MAC add
 | **Threading**     | Simultaneous sniffing & dashboard       |
 
 ---
+Here’s the updated version of the **setup instructions** with a more open and user-friendly structure:
 
-### 🛠️ Setup Instructions
+---
+
+## 🛠️ Setup Instructions
 
 ### 1. Clone the Repository
 
+First, clone the repository to your local machine:
+
 ```bash
 git clone https://github.com/your-username/mac-spoofing-detector.git
+```
+
+Next, navigate to the project directory:
+
+```bash
 cd mac-spoofing-detector
 ```
 
 ### 2. Install Dependencies
 
+Now, install the required Python dependencies using the `requirements.txt` file:
+
 ```bash
 pip install -r requirements.txt
 ```
 
+---
 ### 3. Configure the Tool
 
 Set your **network interface** in `config.py`:
